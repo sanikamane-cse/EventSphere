@@ -4,7 +4,7 @@ const {
   getEvents, getEventById, createEvent,
   updateEvent, deleteEvent, getMyEvents,
   toggleLike, toggleBookmark,
-} = require("../controllers/eventcontroller");
+} = require("../controllers/eventController");
 const { protect } = require("../middleware/authMiddleware");
 const { authorize } = require("../middleware/roleMiddleware");
 
