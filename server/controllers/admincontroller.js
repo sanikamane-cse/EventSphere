@@ -1,7 +1,7 @@
 // controllers/adminController.js
 // Admin-only operations: view all events, approve/reject them, manage users.
 
-const Event = require("../models/event");
+const Event = require("../models/Event");
 const User = require("../models/User");
 
 // ─── Get All Events (with filters) ───────────────────────
