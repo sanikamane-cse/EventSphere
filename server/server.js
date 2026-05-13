@@ -41,6 +41,21 @@ app.get("/api/health", (req, res) => {
   res.json({ success: true, message: "EventSphere API is running 🎉" });
 });
 
+app.get("/api/check-admin", async (req, res) => {
+  try {
+    const User = require("./models/User");
+    const user = await User.findOne({ email: "admin@eventsphere.com" }).select("+password");
+    res.json({
+      found: !!user,
+      role: user?.role,
+      name: user?.name,
+      hasPassword: !!user?.password,
+    });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+});
+
 app.get("/api/setup", async (req, res) => {
   try {
     const User = require("./models/User");
