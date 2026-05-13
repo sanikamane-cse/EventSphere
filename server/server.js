@@ -50,7 +50,7 @@ app.get("/api/setup", async (req, res) => {
     await User.create({
       name: "Admin",
       email: "admin@eventsphere.com",
-      password: "admin123",
+      password: "Admin@123",
       role: "admin",
       college: "EventSphere",
     });
