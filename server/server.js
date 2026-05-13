@@ -11,7 +11,7 @@ connectDB();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "http://localhost:5174", 
+    "http://localhost:5174",
     "http://localhost:5175",
     "https://event-sphere-six-ashen.vercel.app",
     "https://event-sphere-git-main-sanikamane-cses-projects.vercel.app",
@@ -41,47 +41,38 @@ app.get("/api/health", (req, res) => {
   res.json({ success: true, message: "EventSphere API is running 🎉" });
 });
 
-// Temp setup route
 app.get("/api/setup", async (req, res) => {
   try {
-    const bcrypt = require("bcryptjs");
     const User = require("./models/User");
     const Event = require("./models/Event");
 
-    // Admin
     await User.deleteOne({ email: "admin@eventsphere.com" });
-    const adminPass = await bcrypt.hash("admin123", 10);
     await User.create({
       name: "Admin",
       email: "admin@eventsphere.com",
-      password: adminPass,
+      password: "admin123",
       role: "admin",
       college: "EventSphere",
     });
 
-    // Organizer
     await User.deleteOne({ email: "organizer@test.com" });
-    const orgPass = await bcrypt.hash("password123", 10);
     const organizer = await User.create({
       name: "Test Organizer",
       email: "organizer@test.com",
-      password: orgPass,
+      password: "password123",
       role: "organizer",
       college: "MIT Pune",
     });
 
-    // Student
     await User.deleteOne({ email: "sanika@test.com" });
-    const stuPass = await bcrypt.hash("password123", 10);
     await User.create({
       name: "Sanika",
       email: "sanika@test.com",
-      password: stuPass,
+      password: "password123",
       role: "student",
       college: "MIT Pune",
     });
 
-    // Events
     await Event.deleteMany({});
     await Event.create([
       {
@@ -146,7 +137,7 @@ app.get("/api/setup", async (req, res) => {
       },
       {
         title: "Inter-College Cricket Tournament 2026",
-        description: "Annual inter-college cricket tournament open for all departments.",
+        description: "Annual inter-college cricket tournament.",
         category: "sports",
         venue: "MIT Pune Cricket Ground",
         date: new Date("2026-04-25"),
@@ -161,7 +152,7 @@ app.get("/api/setup", async (req, res) => {
       },
     ]);
 
-    res.json({ success: true, message: "Setup complete! Users and Events created in Atlas!" });
+    res.json({ success: true, message: "Setup complete!" });
   } catch (error) {
     res.json({ success: false, message: error.message });
   }
